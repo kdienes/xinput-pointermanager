@@ -1,0 +1,5 @@
+package "xinput-pointermanager"
+version "0"
+
+option "prefix" - "The prefix to use to find pointing devices."
+string default="PSMove pointer " optional

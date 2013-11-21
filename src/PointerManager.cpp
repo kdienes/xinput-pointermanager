@@ -1,16 +1,16 @@
-#include "WandManager.h"
+#include "PointerManager.h"
 
 #include <string.h>
 #include <stdint.h>
 
 const bool remaster = true;
 
-WandManager::WandManager (Display *display) : m_display (display)
+PointerManager::PointerManager (Display *display) : m_display (display)
 {
   m_sizes = XRRSizes (display, DefaultScreen (display), &m_nsizes);
 }
 
-void WandManager::RemoveMaster (XIDeviceInfo *d)
+void PointerManager::RemoveMaster (XIDeviceInfo *d)
 {
   XIRemoveMasterInfo remove;
   remove.type = XIRemoveMaster;
@@ -21,7 +21,7 @@ void WandManager::RemoveMaster (XIDeviceInfo *d)
   XIChangeHierarchy (m_display, (XIAnyHierarchyChangeInfo *) &remove, 1);
 }
 
-void WandManager::Attach (int slave, int master)
+void PointerManager::Attach (int slave, int master)
 {
   XIAttachSlaveInfo attach;
   attach.type = XIAttachSlave;
@@ -30,7 +30,7 @@ void WandManager::Attach (int slave, int master)
   XIChangeHierarchy (m_display, (XIAnyHierarchyChangeInfo *) &attach, 1);
 }
 
-void WandManager::QueryDevices (bool calibrateAll)
+void PointerManager::QueryDevices (std::string prefix, bool calibrateAll)
 {
   int ndevices;
   XIDeviceInfo *devices, *device;
@@ -41,7 +41,7 @@ void WandManager::QueryDevices (bool calibrateAll)
 
     device = &devices[i];
 
-    if (strncmp (device->name, "PSMove pointer ", strlen ("PSMove pointer ")) != 0) {
+    if (strncmp (device->name, prefix.c_str(), strlen (prefix.c_str ())) != 0) {
       continue;
     }
     if (strstr (device->name, "XTEST") != NULL) {
@@ -136,7 +136,7 @@ void WandManager::QueryDevices (bool calibrateAll)
   XSync (m_display, false);
 }
 
-void WandManager::Calibrate (int deviceid)
+void PointerManager::Calibrate (int deviceid)
 {
   printf ("calibrating %d\n", deviceid);
 

@@ -5,7 +5,7 @@
 #include <X11/extensions/Xrandr.h>
 #include <X11/X.h>
 
-class WandManager
+class PointerManager
 {
  public:
 
@@ -26,8 +26,8 @@ class WandManager
 
  public:
 
-  WandManager (Display *display);
-  void QueryDevices (bool calibrateAll);
+  PointerManager (Display *display);
+  void QueryDevices (std::string prefix, bool calibrateAll);
   void RemoveMaster (XIDeviceInfo *d);
   void Calibrate (int deviceid);
   void Attach (int slave, int master);

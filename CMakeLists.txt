@@ -1,12 +1,12 @@
 cmake_minimum_required (VERSION 2.8.7)
 
-project (xinput-pointermanager)
+project (xinput_pointermanager)
 
 include_directories (src)
 
-include (${psmovesender_SOURCE_DIR}/bld/debian-version.cmake)
-include (${psmovesender_SOURCE_DIR}/bld/gengetopt.cmake)
-include (${psmovesender_SOURCE_DIR}/bld/help2man.cmake)
+include (${xinput_pointermanager_SOURCE_DIR}/bld/debian-version.cmake)
+include (${xinput_pointermanager_SOURCE_DIR}/bld/gengetopt.cmake)
+include (${xinput_pointermanager_SOURCE_DIR}/bld/help2man.cmake)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frounding-math -std=c++0x")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_CURRENT_BINARY_DIR}")

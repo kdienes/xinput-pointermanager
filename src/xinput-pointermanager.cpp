@@ -1,15 +1,22 @@
-#include <string.h>
+#include "PointerManager.h"
 
+#include "xinput-pointermanager-options.h"
+
+#include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #include <X11/extensions/XInput2.h>
 #include <X11/extensions/Xrandr.h>
 #include <X11/X.h>
 
-#include "WandManager.h"
-
-int main ()
+int main (int argc, char *argv[])
 {
+  gengetopt_args_info args_info;
+
+  if (cmdline_parser (argc, argv, &args_info) != 0)
+    exit (EXIT_FAILURE);
+
   Display *display = XOpenDisplay (NULL);
   if (display == NULL) {
     printf ("unable to connect");
@@ -33,9 +40,9 @@ int main ()
     printf ("X randr extension not available.\n");
   }
 
-  WandManager m (display);
+  PointerManager m (display);
 
-  m.QueryDevices (true);
+  m.QueryDevices (args_info.prefix_arg, true);
 
   XIEventMask evmask;
   unsigned char mask[2] = { 0, 0 };
@@ -59,11 +66,11 @@ int main ()
     
     switch (ev.xcookie.type) {
     case XI_HierarchyChanged:
-      m.QueryDevices (false);
+      m.QueryDevices (args_info.prefix_arg, false);
       break;
     default:
       /* I can't get the opcode right. */
-      m.QueryDevices (false);
+      m.QueryDevices (args_info.prefix_arg, false);
       break;
     }
 
