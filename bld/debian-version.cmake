@@ -1,0 +1,10 @@
+FILE (READ "${CMAKE_CURRENT_SOURCE_DIR}/debian/changelog" DEBCHANGELOG)
+STRING (REGEX REPLACE ".*\\((.*)\\).*" "\\1" DEBFULLVERSION "${DEBCHANGELOG}")
+message(STATUS "Building Debian version: " ${DEBFULLVERSION})
+
+SET(DEBFULLVERSION ${DEBFULLVERSION} CACHE INTERNAL "Full package version." FORCE)
+
+if(NOT DEBFULLVERSION)
+  message(FATAL_ERROR "unable to find debian version")
+endif(NOT DEBFULLVERSION)
+

@@ -1,0 +1,39 @@
+Source: psmovesender
+Section: utils
+Priority: optional
+Maintainer: Klee Dienes <klee@mit.edu>
+Build-Depends: debhelper (>= 9), autotools-dev, cmake, gengetopt, help2man
+Standards-Version: 3.9.4
+Homepage: http://www.hadronindustries.com
+
+Package: psmove-mouse
+Section: utils
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PlayStation Move mouse emulator
+ This package generates synthetic USB HID tablet events driven by a
+ PlayStation Move controller.  The user can specify a system
+ configuration describing their screen layout, and the location of the
+ mouse cursor is based on the place on the screen to which the user is
+ pointing.
+
+Package: gspeak-uhid
+Section: contrib/utils
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: g-speak uhid-based mouse emulator
+ This package generates synthetic USB HID tablet events driven by any
+ g-speak pointing device.  Harden events are converted to button 1.
+ This is designed to be used with the multi-pointer support in
+ XInput2.
+
+Package: psmove-gspeak
+Section: contrib/utils
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PlayStation Move g-speak wand emulator
+ This package generates g-speak wand events driven by a PlayStation
+ Move controller.
